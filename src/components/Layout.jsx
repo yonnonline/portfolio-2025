@@ -35,16 +35,10 @@ function Layout({ children }) {
                 Project
               </Link>
             </li>
-            <li>
-              <Link to="/contact" className="hover:text-blue-500">
-                Contact
-              </Link>
-            </li>
           </ul>
         </nav>
       </header>
-
-      <main className="flex-1 mt-20">{children}</main>
+      <main className="h-screen pt-10">{children}</main>
     </div>
   );
 }

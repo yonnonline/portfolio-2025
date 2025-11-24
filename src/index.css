@@ -1,11 +1,30 @@
 @import "./styles/font.css";
+@import "./styles/global.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  /* Reset */
+  html {
+    box-sizing: border-box;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
+  /* 기본 스타일 */
   body {
-    @apply font-pretendard;
+    @apply font-pretendard bg-white text-primary antialiased;
+  }
+
+  /* form */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply outline-none ring-0;
   }
 }

@@ -1,0 +1,7 @@
+/* src/styles/global.css */
+:root {
+  --color-primary: #0e1a25;
+  --color-secondary: #f2f4f7;
+  --color-accent: #4a7ea0;
+  --color-border: #d1d5db;
+}

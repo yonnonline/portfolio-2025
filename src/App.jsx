@@ -6,7 +6,6 @@ import Skill from "./pages/Skill";
 import Work from "./pages/Work";
 import Component from "./pages/Component";
 import Project from "./pages/Project";
-import Contact from "./pages/Contact";
 
 function App() {
   return (
@@ -19,7 +18,6 @@ function App() {
           <Route path="/work" element={<Work />} />
           <Route path="/component" element={<Component />} />
           <Route path="/project" element={<Project />} />
-          <Route path="/contact" element={<Contact />} />
         </Routes>
       </Layout>
     </BrowserRouter>

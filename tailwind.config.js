@@ -7,6 +7,12 @@ export default {
         inter: ["Inter", "sans-serif"],
         hostGrotesk: ["Host Grotesk", "sans-serif"],
       },
+      colors: {
+        primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+        accent: "var(--color-accent)",
+        border: "var(--color-border)",
+      },
     },
   },
   plugins: [],
