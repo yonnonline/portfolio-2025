@@ -2,11 +2,12 @@ import Link from "next/link";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 
-const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Workflow", href: "#workflow" },
-  { label: "Contact", href: "#contact" }
+type Hash = `#${string}`;
+
+const navItems: { label: string; hash: Hash }[] = [
+  { label: "About", hash: "#about" },
+  { label: "Projects", hash: "#projects" },
+  { label: "Workflow", hash: "#workflow" }
 ];
 
 // 고정형 헤더 컴포넌트
@@ -19,13 +20,13 @@ export default function Header() {
           className="font-display text-base font-semibold uppercase tracking-[0.36em] transition hover:text-accent"
           aria-label="홈으로 이동"
         >
-          FRNT·PUB — 2025
+          FRNT·PUB · 2025
         </Link>
         <nav className="hidden items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] sm:flex">
           {navItems.map((item) => (
             <Link
-              key={item.href}
-              href={item.href}
+              key={item.hash}
+              href={item.hash}
               className={cn(
                 "rounded-full px-3 py-2 transition hover:bg-foreground/5 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
               )}
