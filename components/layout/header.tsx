@@ -17,10 +17,10 @@ export default function Header() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="font-display text-base font-semibold uppercase tracking-[0.36em] transition hover:text-accent"
+          className="font-display text-base font-semibold uppercase tracking-[0.2em] transition hover:text-accent"
           aria-label="홈으로 이동"
         >
-          FRNT·PUB · 2025
+          YW Portfolio
         </Link>
         <nav className="hidden items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] sm:flex">
           {navItems.map((item) => (
