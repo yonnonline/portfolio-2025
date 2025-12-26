@@ -2,12 +2,10 @@ import Link from "next/link";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 
-type Hash = `#${string}`;
-
-const navItems: { label: string; hash: Hash }[] = [
-  { label: "About", hash: "#about" },
-  { label: "Projects", hash: "#projects" },
-  { label: "Workflow", hash: "#workflow" }
+const navItems: { label: string; hash: string }[] = [
+  { label: "About", hash: "about" },
+  { label: "Projects", hash: "projects" },
+  { label: "Workflow", hash: "workflow" }
 ];
 
 // 고정형 헤더 컴포넌트
@@ -26,7 +24,7 @@ export default function Header() {
           {navItems.map((item) => (
             <Link
               key={item.hash}
-              href={item.hash}
+              href={{ hash: item.hash }}
               className={cn(
                 "rounded-full px-3 py-2 transition hover:bg-foreground/5 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
               )}
@@ -38,7 +36,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <ThemeToggle size="sm" />
           <Link
-            href="#contact"
+            href={{ hash: "contact" }}
             className="hidden rounded-full border border-border/60 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 sm:inline-flex"
           >
             Contact
