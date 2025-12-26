@@ -1,25 +1,38 @@
-// 프로젝트 목록 섹션: 사이드 패널 상세 보기 계획 포함
+"use client";
+
+import Drawer from "@/components/drawer/drawer";
+import { useDrawerQuery } from "@/lib/drawer";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+
+const projects = [
+  {
+    title: "Interactive Landing",
+    slug: "interactive-landing",
+    tag: "모션 퍼블리싱",
+    summary: "GSAP 기반 마이크로 인터랙션과 반응형 그리드",
+    detail: "히어로 모션 + 스크롤 씬 · 사이드 패널 상세"
+  },
+  {
+    title: "Design System Docs",
+    slug: "design-system-docs",
+    tag: "문서화",
+    summary: "shadcn 컴포넌트 커스터마이징 + 토큰 기반 스타일 가이드",
+    detail: "토큰/컴포넌트 가이드라인 · a11y 체크리스트"
+  },
+  {
+    title: "SEO-first Blog",
+    slug: "seo-first-blog",
+    tag: "퍼포먼스",
+    summary: "메타데이터, OG, 슬러그 전략을 포함한 블로그",
+    detail: "App Router 슬러그/OG 이미지 자동화"
+  }
+];
+
+// 프로젝트 목록 섹션: 사이드 패널 상세 보기 포함
 export function ProjectsSection() {
-  const projects = [
-    {
-      title: "Interactive Landing",
-      tag: "모션 퍼블리싱",
-      summary: "GSAP 기반 마이크로 인터랙션과 반응형 그리드",
-      detail: "히어로 모션 + 스크롤 씬 · 사이드 패널 상세"
-    },
-    {
-      title: "Design System Docs",
-      tag: "문서화",
-      summary: "shadcn 컴포넌트 커스터마이징 + 토큰 기반 스타일 가이드",
-      detail: "토큰/컴포넌트 가이드라인 · a11y 체크리스트"
-    },
-    {
-      title: "SEO-first Blog",
-      tag: "퍼포먼스",
-      summary: "메타데이터, OG, 슬러그 전략을 포함한 블로그",
-      detail: "App Router 슬러그/OG 이미지 자동화"
-    }
-  ];
+  const { drawerId, openDrawer, closeDrawer } = useDrawerQuery({ key: "project", baseHash: "projects" });
+  const activeProject = projects.find((project) => project.slug === drawerId);
 
   return (
     <section id="projects" className="px-5 py-20 sm:px-6 lg:px-8">
@@ -48,13 +61,50 @@ export function ProjectsSection() {
               <p className="mt-2 text-sm text-foreground/70">{project.summary}</p>
               <p className="mt-2 text-xs text-foreground/60">{project.detail}</p>
               <div className="mt-7 flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-                <span>Side Panel · Ready</span>
-                <span aria-hidden className="transition group-hover:translate-x-1">→</span>
+                <button
+                  type="button"
+                  onClick={() => openDrawer(project.slug)}
+                  className={cn(
+                    "inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-2 text-foreground transition hover:-translate-y-0.5 hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                  )}
+                >
+                  드로어로 보기 <span aria-hidden className="transition group-hover:translate-x-1">→</span>
+                </button>
+                <span aria-hidden className="hidden text-foreground/60 sm:inline">/{project.slug}</span>
               </div>
             </article>
           ))}
         </div>
       </div>
+      <Drawer
+        open={Boolean(activeProject)}
+        onClose={closeDrawer}
+        side="right"
+        motion="slide"
+        title={activeProject?.title ?? "Project"}
+        description={activeProject?.tag ?? "Selected work"}
+      >
+        {activeProject ? (
+          <div className="space-y-4 text-sm leading-relaxed text-foreground/80">
+            <p className="text-xs uppercase tracking-[0.22em] text-foreground/60">#{activeProject.slug}</p>
+            <p className="text-base font-semibold">{activeProject.summary}</p>
+            <p className="text-foreground/70">{activeProject.detail}</p>
+            <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.2em] text-foreground/60">
+              <span className="rounded-full border border-border/60 px-3 py-1">IA</span>
+              <span className="rounded-full border border-border/60 px-3 py-1">Drawer</span>
+              <span className="rounded-full border border-border/60 px-3 py-1">Responsive</span>
+            </div>
+            <Link
+              href={{ hash: "contact" }}
+              className="inline-flex rounded-full border border-border/60 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            >
+              프로젝트 문의
+            </Link>
+          </div>
+        ) : (
+          <p className="text-sm text-foreground/60">프로젝트를 선택하면 드로어로 상세 내용을 확인할 수 있습니다.</p>
+        )}
+      </Drawer>
     </section>
   );
 }
