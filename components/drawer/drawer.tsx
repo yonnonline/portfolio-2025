@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type DrawerSide = "left" | "right" | "center";
@@ -8,9 +8,9 @@ type Motion = "slide" | "fade";
 type Size = "sm" | "md" | "lg" | "full";
 
 const sizeClass: Record<Size, string> = {
-  sm: "max-w-md",
-  md: "max-w-[520px]",
-  lg: "max-w-2xl",
+  sm: "max-w-sm",
+  md: "max-w-xl",
+  lg: "max-w-3xl",
   full: "max-w-full",
 };
 
@@ -38,8 +38,10 @@ export default function Drawer({
   children,
   showOverlay = true,
   closeOnOverlayClick = true,
-  size = "lg",
+  size = "lg"
 }: DrawerProps) {
+  const drawerRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape" && open) {
@@ -65,11 +67,47 @@ export default function Drawer({
         ? slideOpen
         : slideClosed
       : open
-      ? "opacity-100"
-      : "opacity-0";
+        ? "opacity-100"
+        : "opacity-0";
+
+  // 드로어 열릴 때 body 스크롤 잠금 + 스크롤바 너비만큼 패딩 추가
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const body = document.body;
+    const html = document.documentElement;
+    const prevBodyOverflow = body.style.overflow;
+    const prevHtmlOverflow = html.style.overflow;
+    const prevBodyPaddingRight = body.style.paddingRight;
+
+    if (open) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      const currentPadding = parseFloat(getComputedStyle(body).paddingRight) || 0;
+      if (scrollbarWidth > 0) {
+        body.style.paddingRight = `${currentPadding + scrollbarWidth}px`;
+      }
+      body.style.overflow = "hidden";
+      html.style.overflow = "hidden";
+    } else {
+      body.style.overflow = prevBodyOverflow;
+      html.style.overflow = prevHtmlOverflow;
+      body.style.paddingRight = prevBodyPaddingRight;
+    }
+
+    return () => {
+      body.style.overflow = prevBodyOverflow;
+      html.style.overflow = prevHtmlOverflow;
+      body.style.paddingRight = prevBodyPaddingRight;
+    };
+  }, [open]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-50 flex items-start justify-end lg:items-stretch">
+    <div
+      className={cn(
+        "fixed inset-0 z-50 flex items-start justify-end lg:items-stretch",
+        !open && "pointer-events-none"
+      )}
+      aria-hidden={!open}
+    >
       {showOverlay && (
         <div
           className={cn(
@@ -91,6 +129,7 @@ export default function Drawer({
           side === "center" && "mx-auto rounded-2xl",
           motionClasses
         )}
+        ref={drawerRef}
       >
         <div className="flex items-start justify-between gap-3 border-b border-border/60 px-5 py-4">
           <div className="space-y-1">
