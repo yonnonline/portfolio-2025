@@ -1,7 +1,7 @@
 export const siteConfig = {
-  title: "프론트엔드 퍼블리셔 포트폴리오",
+  title: "권영원 | 웹 퍼블리싱 포트폴리오",
   description:
-    "인터랙션과 퍼포먼스를 겸비한 프론트엔드 퍼블리셔 포트폴리오 사이트",
+    "컴포넌트 단위로 사고하고, 정확한 마크업과 구조화 능려",
   url: "https://portfolio-2025.example.com",
   ogImage: "/og/default.png",
   ogImagePattern: "/og/{slug}.png",
