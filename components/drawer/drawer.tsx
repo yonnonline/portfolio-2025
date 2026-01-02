@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type DrawerSide = "left" | "right" | "center";
@@ -38,9 +38,10 @@ export default function Drawer({
   children,
   showOverlay = true,
   closeOnOverlayClick = true,
-  size = "lg"
+  size = "lg",
 }: DrawerProps) {
   const drawerRef = useRef<HTMLDivElement | null>(null);
+  const [currentSize, setCurrentSize] = useState<Size>(size);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -67,8 +68,13 @@ export default function Drawer({
         ? slideOpen
         : slideClosed
       : open
-        ? "opacity-100"
-        : "opacity-0";
+      ? "opacity-100"
+      : "opacity-0";
+
+  // props size 변경 시 내부 상태 동기화
+  useEffect(() => {
+    setCurrentSize(size);
+  }, [size]);
 
   // 드로어 열릴 때 body 스크롤 잠금 + 스크롤바 너비만큼 패딩 추가
   useEffect(() => {
@@ -80,8 +86,10 @@ export default function Drawer({
     const prevBodyPaddingRight = body.style.paddingRight;
 
     if (open) {
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      const currentPadding = parseFloat(getComputedStyle(body).paddingRight) || 0;
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      const currentPadding =
+        parseFloat(getComputedStyle(body).paddingRight) || 0;
       if (scrollbarWidth > 0) {
         body.style.paddingRight = `${currentPadding + scrollbarWidth}px`;
       }
@@ -112,7 +120,9 @@ export default function Drawer({
         <div
           className={cn(
             "absolute inset-0 bg-black/30 transition-opacity duration-300",
-            open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            open
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
           )}
           aria-hidden
           onClick={closeOnOverlayClick ? onClose : undefined}
@@ -124,7 +134,7 @@ export default function Drawer({
         aria-label={title ?? "Drawer"}
         className={cn(
           "pointer-events-auto relative m-0 flex h-full w-full flex-col overflow-hidden border border-border/70 bg-background/95 shadow-2xl backdrop-blur-xl transition-all duration-300 ease-[cubic-bezier(0.4,0.14,0.3,1)]",
-          sizeClass[size],
+          sizeClass[currentSize],
           side === "left" && "ml-0 mr-auto",
           side === "center" && "mx-auto rounded-2xl",
           motionClasses
@@ -142,13 +152,24 @@ export default function Drawer({
               <p className="text-xs text-foreground/60">{description}</p>
             ) : null}
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-full border border-border/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] transition hover:-translate-y-0.5 hover:shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-          >
-            Close
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() =>
+                setCurrentSize((prev) => (prev === "full" ? size : "full"))
+              }
+              className="rounded-full border border-border/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] transition hover:-translate-y-0.5 hover:shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            >
+              {currentSize === "full" ? "기본 보기" : "전체 화면"}
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-full border border-border/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] transition hover:-translate-y-0.5 hover:shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            >
+              Close
+            </button>
+          </div>
         </div>
         <div className="flex-1 overflow-y-auto px-5 py-4">{children}</div>
       </div>
