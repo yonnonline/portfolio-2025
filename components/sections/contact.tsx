@@ -11,7 +11,7 @@ export function ContactSection() {
         <div className="space-y-3 text-center sm:text-left">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-foreground/60">Contact</p>
           <h2 className="font-display text-3xl font-semibold leading-tight sm:text-4xl">
-            프로젝트를 함께 만들 준비가 되어 있습니다.
+            구조와 유지보수를 고려한 UI 구현이 필요하다면 <br /> 함께 이야기 나누고 싶습니다.
           </h2>
           <p className="text-sm text-foreground/70">
             요구사항 정의부터 인터랙션 구현, SEO 최적화까지 전 과정을 함께 설계합니다. 프로덕션 배포 이후에도
