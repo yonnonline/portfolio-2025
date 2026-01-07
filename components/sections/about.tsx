@@ -1,49 +1,98 @@
-// 소개 섹션: 역할과 가치
+// 소개 섹션: 자기소개, 경력 요약, 역할, 관심사, 기술 스택
 export function AboutSection() {
-  const highlights = [
-    "접근성 준수와 가독성을 고려한 마크업",
-    "디자인 시스템과 토큰 기반의 스타일 일관성",
-    "코어 웹 바이탈 대응을 위한 경량화/최적화"
+  const roles = [
+    "시맨틱 마크업, 접근성, 반응형 UI 구현",
+    "디자인 시안 기반 퍼블리싱 및 컴포넌트화",
+    "유지보수를 고려한 구조 및 CSS 설계"
   ];
+
+  const interests = [
+    "웹퍼블리싱 관점의 컴포넌트 설계",
+    "React 기반 UI 상태 관리",
+    "SEO, 성능 최적화"
+  ];
+
+  const stacks = {
+    Publishing: ["HTML5", "CSS", "JavaScript", "Responsive", "Accessibility"],
+    Frontend: ["React", "Next.js", "TypeScript"],
+    Tools: ["VSCode", "Figma", "Git"]
+  };
 
   return (
     <section id="about" className="border-t border-border/60 bg-background/90 px-5 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl space-y-10">
-        <div className="flex flex-col gap-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-foreground/50">About</p>
-          <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-start">
-            <h2 className="font-display text-3xl font-semibold leading-tight sm:text-4xl">
-              퍼블리싱 방향성: <span className="text-foreground/70">타이포·레이아웃으로 무드를 만들고</span> 섹션
-              모듈화로 확장성을 확보합니다.
-            </h2>
-            <div className="space-y-3 text-sm text-foreground/70">
-              <p>
-                모든 스크립트 주석은 한글로 기록하며, 퍼포먼스/접근성 체크리스트를 설계 초기부터 병행합니다. 라우트
-                그룹과 사이드 패널 레이아웃을 기반으로 상세 페이지 확장을 고려합니다.
+      <div className="mx-auto max-w-6xl space-y-12">
+        <section className="flex flex-col gap-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-foreground/60">About</p>
+          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+            <div className="space-y-4">
+              <h2 className="font-display text-3xl font-semibold leading-tight">안녕하세요. 권영원입니다.</h2>
+              <p className="text-base text-foreground/80">
+                웹 퍼블리셔로 커리어를 시작해, 구조적인 마크업과 접근성을 기반으로 UI를 구현해왔습니다. <br className="hidden sm:block" />최근에는
+                React와 Next.js 환경에서 컴포넌트 단위의 설계와 상태 관리에 관심을 두고 있습니다.
               </p>
-              <p className="text-xs uppercase tracking-[0.22em] text-foreground/60">
-                Typographic Layout · Interaction Ready · A11y
+            </div>
+            <div className="rounded-2xl border border-border/70 bg-background/80 p-6 shadow-sm">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-foreground">Career Summary</p>
+              <p className="mt-3 text-lg font-semibold text-foreground">
+                (주)메가스터디교육 <span className="text-sm text-foreground/70">(현 넥스트스터디)</span>
               </p>
+              <p className="mt-2 text-sm text-foreground/80">소속: 공무원사업본부 퍼블리싱팀</p>
+              <p className="mt-2 text-sm text-foreground/80">근무 기간: 2022.08 - 현재</p>
+              <p className="mt-1 text-sm text-foreground/80">주요 업무: 사내 서비스 구축 및 운영</p>
             </div>
           </div>
-        </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {highlights.map((item, idx) => (
-            <div
-              key={item}
-              className="group relative overflow-hidden rounded-2xl border border-border/70 bg-gradient-to-br from-background to-background/70 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-            >
-              <div className="flex items-center justify-between text-xs uppercase tracking-[0.22em] text-foreground/60">
-                <span>Principle {idx + 1}</span>
-                <span className="h-[1px] w-8 bg-foreground/40" aria-hidden />
+        </section>
+
+        <section className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-2xl border border-border/70 bg-gradient-to-br from-background to-background/70 p-6 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-foreground">Roles</p>
+            <ul className="mt-4 space-y-2 text-base text-foreground/80">
+              {roles.map((item) => (
+                <li key={item}>- {item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-border/70 bg-gradient-to-br from-background to-background/70 p-6 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-foreground">Interests</p>
+            <ul className="mt-4 space-y-2 text-base text-foreground/80">
+              {interests.map((item) => (
+                <li key={item}>- {item}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="space-y-4">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-foreground">Tech Stack</p>
+          <div className="grid gap-4 md:grid-cols-3">
+            {Object.entries(stacks).map(([category, items]) => (
+              <div
+                key={category}
+                className="rounded-2xl border border-border/70 bg-background/80 p-6 shadow-sm"
+              >
+                <p className="text-base font-semibold text-foreground">{category}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-border/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-foreground/80"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <p className="mt-4 text-sm font-semibold leading-relaxed">{item}</p>
-              <p className="mt-3 text-xs text-foreground/60">
-                재사용성보다 모듈화에 집중하여 섹션 단위의 독립성과 확장성을 확보합니다.
-              </p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-border/70 bg-background/80 p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-foreground">Work Values</p>
+          <p className="mt-3 text-base text-foreground/80">
+            단기 구현보다 장기 유지보수를 우선합니다. 퍼블리싱과 개발의 경계를 자연스럽게 연결하는 역할을 지향하며,
+            디자인 의도를 코드로 정확히 옮기는 것을 중요하게 생각합니다.
+          </p>
+        </section>
       </div>
     </section>
   );
