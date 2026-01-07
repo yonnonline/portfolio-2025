@@ -43,13 +43,13 @@ export function HeroSection() {
               <div className="flex flex-wrap items-center justify-start gap-3 sm:justify-end">
                 <Link
                   href="#projects"
-                  className="rounded-full bg-foreground px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-background shadow-lg transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                  className="rounded-full bg-accent px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                 >
                   View Projects
                 </Link>
                 <Link
                   href="#contact"
-                  className="rounded-full border border-border px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                  className="rounded-full border border-foreground/30 bg-background/80 px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-foreground transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                 >
                   Contact Me
                 </Link>
